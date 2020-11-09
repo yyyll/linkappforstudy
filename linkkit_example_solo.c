@@ -25,10 +25,10 @@
 #include "app_entry.h"
 
 // for demo only
-#define PRODUCT_KEY      "a1FxISeKbq9"
-#define PRODUCT_SECRET   "ThNbP5iNUQ1lQe2Q"
-#define DEVICE_NAME      "alen-activate-test"
-#define DEVICE_SECRET    "jcumDL5AJRgU7zRNcCcnHRiQmtii0vDn"
+#define PRODUCT_KEY      "a1kXWfPsGpq"
+#define PRODUCT_SECRET   "bipGzprp1l4p5Ycn"
+#define DEVICE_NAME      "edu_led_test_111"
+#define DEVICE_SECRET    "ee0016e31f1a54ca0f98e841921df5df"
 
 #define EXAMPLE_TRACE(...)                                          \
     do {                                                            \
