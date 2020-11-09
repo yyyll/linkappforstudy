@@ -1,0 +1,61 @@
+deps_config := \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/dm/uagent/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/fs/spiffs/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/dm/ota/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/security/linksecurity/ls_osa/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/security/linksecurity/ls_hal/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/security/linksecurity/irot/tee/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/security/linksecurity/irot/se/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/security/linksecurity/irot/km/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/linkkit/dynamic_register/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/linkkit/certs/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/security/linksecurity/itls/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/security/linksecurity/irot/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/security/linksecurity/id2/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/network/http/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/fs/fatfs/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/wireless/bluetooth/ble/host/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/wireless/bluetooth/ble/host/bt_common/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/wireless/bluetooth/ble/breeze/ref-impl/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/wireless/bluetooth/ble/breeze/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/security/linksecurity/alicrypto/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/utility/yloop/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/utility/cjson/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/security/mbedtls/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/network/netmgr/activation/chip_code/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/network/netmgr/activation/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/network/netmgr/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/network/lwip/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/network/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/linkkit/wrappers/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/linkkit/wifi_provision/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/linkkit/mqtt/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/linkkit/iot_coap/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/linkkit/infra/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/linkkit/dev_sign/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/linkkit/dev_model/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/dm/und/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/components/dm/ulog/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/core/vfs/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/core/rhino/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/core/rbtree/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/core/osal/aos/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/core/kv/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/core/init/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/core/cli/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/platform/mcu/esp32/Config.in \
+	F:\EDU\iot_esp32\git\prj\linkapp/board/esp32devkitc/Config.in \
+	F:/EDU/iot_esp32/git/AliOS-Things/platform/arch/xtensa/lx6/Config.in \
+	F:\EDU\iot_esp32\git\prj\linkapp/Config.in
+
+F:/EDU/iot_esp32/git/prj/linkapp/out/config/auto.conf: \
+	$(deps_config)
+
+ifneq "$(APPDIR)" "F:\EDU\iot_esp32\git\prj\linkapp"
+F:/EDU/iot_esp32/git/prj/linkapp/out/config/auto.conf: FORCE
+endif
+ifneq "$(AOS_SDK_PATH)" "F:/EDU/iot_esp32/git/AliOS-Things"
+F:/EDU/iot_esp32/git/prj/linkapp/out/config/auto.conf: FORCE
+endif
+
+$(deps_config): ;
