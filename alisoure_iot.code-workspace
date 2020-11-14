@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"aliosStudio.inner.yosBin": "aos",
+		"aliosStudio.hardware.board": "esp32devkitc",
+		"aliosStudio.name": "linkapp",
+		"aliosStudio.aosVersion": "3.0.0"
+	}
+}

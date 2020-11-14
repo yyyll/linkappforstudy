@@ -976,6 +976,16 @@
 // #endif
 
 //================This is split line================
+// KEYWORD: COMPONENT NAME IS  littlevGL
+
+// description:littlevgl
+#define AOS_COMP_LITTLEVGL 1
+
+// #if AOS_COMP_LITTLEVGL
+
+// #endif
+
+//================This is split line================
 // KEYWORD: COMPONENT NAME IS  ls_hal
 
 // description:Link Security Hardware Interface

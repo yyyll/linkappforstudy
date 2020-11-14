@@ -35,6 +35,8 @@
 static ota_service_t ctx = {0};
 #endif
 
+#include "edu_gpio.h"
+
 static char linkkit_started = 0;
 
 #ifdef EN_COMBO_NET
@@ -528,6 +530,14 @@ int application_start(int argc, char **argv)
     aos_task_new("netmgr_start", start_netmgr, NULL, 5120);
 #endif
 #endif
+    edu_gpio_init();
+    //edu_led_test();
+    edu_red_led_off();
+    led_pwm1_init();
+    start_pwm1();
+    keyScan();
+    //ili9431_init();
+    gui_init();
     aos_loop_run();
 
     return 0;

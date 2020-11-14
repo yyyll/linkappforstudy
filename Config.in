@@ -101,6 +101,7 @@ source "$AOS_SDK_PATH/core/vfs/Config.in"
 endmenu
 
 menu "Components  Configuration"
+source "$AOS_SDK_PATH/components/gui/littlevGL/Config.in"
 source "$AOS_SDK_PATH/components/dm/ulog/Config.in"
 source "$AOS_SDK_PATH/components/dm/und/Config.in"
 source "$AOS_SDK_PATH/components/linkkit/dev_model/Config.in"

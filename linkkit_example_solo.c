@@ -25,10 +25,10 @@
 #include "app_entry.h"
 
 // for demo only
-#define PRODUCT_KEY      "a1kXWfPsGpq"
-#define PRODUCT_SECRET   "bipGzprp1l4p5Ycn"
-#define DEVICE_NAME      "edu_led_test_111"
-#define DEVICE_SECRET    "ee0016e31f1a54ca0f98e841921df5df"
+#define PRODUCT_KEY      "a1Gn3Y4b5k9"
+#define PRODUCT_SECRET   "pe5KSQqty5Y9w8bb"
+#define DEVICE_NAME      "hahahatest"
+#define DEVICE_SECRET    "005eefe09611190151e40a0c558a0cf8"
 
 #define EXAMPLE_TRACE(...)                                          \
     do {                                                            \
@@ -110,7 +110,7 @@ static int user_property_set_event_handler(const int devid, const char *request,
 {
     int res = 0;
     EXAMPLE_TRACE("Property Set Received, Request: %s", request);
-
+    property_set_handle(request);
     res = IOT_Linkkit_Report(EXAMPLE_MASTER_DEVID, ITM_MSG_POST_PROPERTY,
                              (unsigned char *)request, request_len);
     EXAMPLE_TRACE("Post Property Message ID: %d", res);

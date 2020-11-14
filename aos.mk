@@ -4,7 +4,7 @@ $(NAME)_MBINS_TYPE := app
 $(NAME)_VERSION := 1.0.2
 $(NAME)_SUMMARY := linkapp
 
-$(NAME)_SOURCES :=   app_entry.c
+$(NAME)_SOURCES :=   app_entry.c edu_gpio.c cmd_handle.c ili9341.c edu_gui.c Alios_Things_logo.c edu_display.c
 $(NAME)_COMPONENTS += libiot_devmodel libiot_awss
 
 $(NAME)_COMPONENTS += netmgr cjson und
@@ -32,6 +32,7 @@ endif
 ifneq ($(HOST_MCU_FAMILY),mcu_esp8266)
 $(NAME)_COMPONENTS  += cli
 GLOBAL_DEFINES += CLI_CONFIG_STACK_SIZE=3072
+GLOBAL_DEFINES += LITTLEGL_ESP32
 else
 GLOBAL_DEFINES += ESP8266_CHIPSET
 endif
@@ -52,10 +53,10 @@ $(NAME)_INCLUDES += ./
 
 
 # components added by include c header file in the source code. DO NOT EDIT!
-$(NAME)_COMPONENTS_CUSTOMIZED :=
+$(NAME)_COMPONENTS_CUSTOMIZED := littlevGL
 
 # add components name manually here if you want to import some components
-$(NAME)_COMPONENTS_CUSTOMIZED +=
+$(NAME)_COMPONENTS_CUSTOMIZED += littlevGL
 
 # tell build system to add components above. DO NOT EDIT!
 $(NAME)_COMPONENTS += $($(NAME)_COMPONENTS_CUSTOMIZED)
