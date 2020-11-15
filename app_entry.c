@@ -531,12 +531,9 @@ int application_start(int argc, char **argv)
 #endif
 #endif
     edu_gpio_init();
-    //edu_led_test();
-    edu_red_led_off();
     led_pwm1_init();
     start_pwm1();
     keyScan();
-    //ili9431_init();
     gui_init();
     aos_loop_run();
 

@@ -4,7 +4,7 @@ $(NAME)_MBINS_TYPE := app
 $(NAME)_VERSION := 1.0.2
 $(NAME)_SUMMARY := linkapp
 
-$(NAME)_SOURCES :=   app_entry.c edu_gpio.c cmd_handle.c ili9341.c edu_gui.c Alios_Things_logo.c edu_display.c
+$(NAME)_SOURCES :=   app_entry.c edu_gpio.c cmd_handle.c ili9341.c edu_gui.c Alios_Things_logo.c edu_display.c display_data.c
 $(NAME)_COMPONENTS += libiot_devmodel libiot_awss
 
 $(NAME)_COMPONENTS += netmgr cjson und

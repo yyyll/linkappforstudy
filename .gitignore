@@ -1,2 +1,16 @@
 /out
 .vscode/.TAGS.AOS.DB
+*.DB
+*.DB-wal
+*.DB-shm
+*.DB
+*.DB
+.vscode/.TAGS.AOS.DB
+*.DB
+*.mk
+*.ar_opts
+out/linkapp@esp32devkitc/libraries/linkapp.ar_opts
+*.mk
+*.mk
+*.ar_opts
+.aos

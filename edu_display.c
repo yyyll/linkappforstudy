@@ -3,6 +3,7 @@
 #include <k_api.h>
 #include "ulog/ulog.h"
 #include "stdio.h"
+#include "display_data.h"
 
 
 LV_IMG_DECLARE(AliOS_Things_logo);
@@ -32,8 +33,40 @@ lv_obj_t *btn2       = NULL;
 lv_obj_t *btn3       = NULL;
 lv_obj_t *btn4       = NULL;
 
+lv_obj_t *lableAirCondition       = NULL;
+lv_obj_t *labelAirTemp    = NULL;
+lv_obj_t *labelAirDity    = NULL;
+lv_obj_t *labelAirTempView    = NULL;
+lv_obj_t *labelAirDityView    = NULL;
+lv_obj_t *labelModeView    = NULL;
+
+lv_obj_t *lableLed       = NULL;
+lv_obj_t *labeLedViewOne    = NULL;
+lv_obj_t *labeLedViewTwo    = NULL;
+lv_obj_t *labeLedViewThr    = NULL;
+lv_obj_t *labeLedViewFou    = NULL;
+lv_obj_t *labelMode   = NULL;
+
+lv_obj_t *lableDoor       = NULL;
+lv_obj_t *labelDoorViewOne    = NULL;
+lv_obj_t *labelDoorViewTwo    = NULL;
+
+lv_obj_t *airConditionBtn       = NULL;
+lv_obj_t *ledBtn       = NULL;
+lv_obj_t *doorBtn       = NULL;
+lv_obj_t *modeBtn       = NULL;
+
 int clock_create_flag  = 0;
 int label_create_flag  = 0;
+extern char airTempText[4];
+extern char airDityText[6];
+extern char led1Text[8];
+extern char led2Text[8];
+extern char led3Text[8];
+extern char led4Text[8];
+extern char door1Text[10];
+extern char door2Text[10];
+extern char modeText[15];
 
 static lv_style_t style;
 static lv_style_t style1;
@@ -137,32 +170,45 @@ static void display_clock(void)
 
 static void create_button(void)
 {
-    btn1 = lv_btn_create(lv_scr_act(), NULL);
-    lv_obj_set_pos(btn1, 50, 10);
-    lv_obj_set_size(btn1, 100, 40);
-    lv_btn_set_layout(btn1, LV_LAYOUT_CENTER);
-    lv_btn_set_style(btn1, LV_BTN_STYLE_INA, &style1);
-    label4 = lv_label_create(btn1, NULL);
-    lv_label_set_style(label4, 0, &style);
-    lv_label_set_text(label4, "LiangJian");
+    airConditionBtn = lv_btn_create(lv_scr_act(), NULL);
+    lv_obj_set_pos(airConditionBtn, 20, 10);
+    lv_obj_set_size(airConditionBtn, 200, 40);
+    lv_btn_set_layout(airConditionBtn, LV_LAYOUT_CENTER);
+    lableAirCondition = lv_label_create(airConditionBtn, NULL);
+    lv_label_set_style(lableAirCondition, 0, &style2);
+    lv_label_set_text(lableAirCondition, "Air Condition");
 
-    btn2 = lv_btn_create(lv_scr_act(), NULL);
-    lv_obj_set_pos(btn2, 50, 110);
-    lv_obj_set_size(btn2, 100, 40);
-    lv_btn_set_layout(btn2, LV_LAYOUT_CENTER);
-    //lv_btn_set_style(btn1, lv_style_btn_rel, &style1);
-    label5 = lv_label_create(btn2, NULL);
-    lv_label_set_style(label5, 0, &style1);
-    lv_label_set_text(label5, "1701");
+    ledBtn = lv_btn_create(lv_scr_act(), NULL);
+    lv_obj_set_pos(ledBtn, 20, 80);
+    lv_obj_set_size(ledBtn, 200, 40);
+    lv_btn_set_layout(ledBtn, LV_LAYOUT_CENTER);
+    lableLed = lv_label_create(ledBtn, NULL);
+    lv_label_set_style(lableLed, 0, &style2);
+    lv_label_set_text(lableLed, "LED Control");
 
-    btn3 = lv_btn_create(lv_scr_act(), NULL);
+    doorBtn = lv_btn_create(lv_scr_act(), NULL);
+    lv_obj_set_pos(doorBtn, 20, 165);
+    lv_obj_set_size(doorBtn, 200, 40);
+    lv_btn_set_layout(doorBtn, LV_LAYOUT_CENTER);
+    lableDoor = lv_label_create(doorBtn, NULL);
+    lv_label_set_style(lableDoor, 0, &style2);
+    lv_label_set_text(lableDoor, " Door");
+
+    modeBtn = lv_btn_create(lv_scr_act(), NULL);
+    lv_obj_set_pos(modeBtn, 20, 250);
+    lv_obj_set_size(modeBtn, 80, 40);
+    lv_btn_set_layout(modeBtn, LV_LAYOUT_CENTER);
+    labelMode = lv_label_create(modeBtn, NULL);
+    lv_label_set_style(labelMode, 0, &style2);
+    lv_label_set_text(labelMode, " Set mode");
+    /*btn3 = lv_btn_create(lv_scr_act(), NULL);
     lv_obj_set_pos(btn3, 50, 210);
     lv_obj_set_size(btn3, 100, 40);
     lv_btn_set_layout(btn3, LV_LAYOUT_CENTER);
     //lv_btn_set_style(btn1, lv_style_btn_rel, &style1);
     label6 = lv_label_create(btn3, NULL);
     lv_label_set_style(label6, 0, &style2);
-    lv_label_set_text(label6, "20174121");
+    lv_label_set_text(label6, "20174121");*/
 }
 
 static void display_label(void)
@@ -170,7 +216,7 @@ static void display_label(void)
     if (label_create_flag == 0)
     {
         clean_screen();
-        //create_label();
+        create_label();
         create_button();
         label_create_flag = 1;
     }
@@ -178,7 +224,7 @@ static void display_label(void)
     if(label_create_flag == 1)
     {
         printf("display_label...");
-        //refresh_label();
+        refresh_label();
     }
 }
 
@@ -196,37 +242,89 @@ void SetStyle(void)
 
 static void create_label(void)
 {
-    label1 = lv_label_create(scr, NULL);
-    lv_label_set_style(label1, 0, &style);
-    lv_obj_align(label1, NULL, LV_ALIGN_CENTER, 0, 0);
-    lv_obj_set_pos(label1, 70, 100);
+    //空调标签
+    labelAirTemp = lv_label_create(scr, NULL);
+    lv_label_set_style(labelAirTemp, 0, &style);
+    lv_obj_align(labelAirTemp, NULL, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_pos(labelAirTemp, 20, 55);
+    lv_label_set_text(labelAirTemp, "Temperature:");
 
-    label2 = lv_label_create(scr, NULL);
-    lv_label_set_style(label2, 0, &style);
-    lv_obj_align(label2, NULL, LV_ALIGN_CENTER, 0, 0);
-    lv_obj_set_pos(label2, 70, 120);
+    labelAirTempView = lv_label_create(scr, NULL);
+    lv_label_set_style(labelAirTempView, 0, &style);
+    lv_obj_align(labelAirTempView, NULL, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_pos(labelAirTempView, 115, 55);
 
+
+    labelAirDity = lv_label_create(scr, NULL);
+    lv_label_set_style(labelAirDity, 0, &style);
+    lv_obj_align(labelAirDity, NULL, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_pos(labelAirDity, 150, 55);
+    lv_label_set_text(labelAirDity, "Dity:");
+
+    labelAirDityView = lv_label_create(scr, NULL);
+    lv_label_set_style(labelAirDityView, 0, &style);
+    lv_obj_align(labelAirDityView, NULL, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_pos(labelAirDityView, 190, 55);
+
+    //LED标签
+    labeLedViewOne = lv_label_create(scr, NULL);
+    lv_label_set_style(labeLedViewOne, 0, &style);
+    lv_obj_align(labeLedViewOne, NULL, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_pos(labeLedViewOne, 20, 125);
+
+    labeLedViewTwo = lv_label_create(scr, NULL);
+    lv_label_set_style(labeLedViewTwo, 0, &style);
+    lv_obj_align(labeLedViewTwo, NULL, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_pos(labeLedViewTwo, 20, 145);
+
+    labeLedViewThr = lv_label_create(scr, NULL);
+    lv_label_set_style(labeLedViewThr, 0, &style);
+    lv_obj_align(labeLedViewThr, NULL, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_pos(labeLedViewThr, 120, 125);
+
+    labeLedViewFou = lv_label_create(scr, NULL);
+    lv_label_set_style(labeLedViewFou, 0, &style);
+    lv_obj_align(labeLedViewFou, NULL, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_pos(labeLedViewFou, 120, 145);
+
+    //门标签
+    labelDoorViewOne = lv_label_create(scr, NULL);
+    lv_label_set_style(labelDoorViewOne, 0, &style);
+    lv_obj_align(labelDoorViewOne, NULL, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_pos(labelDoorViewOne, 20, 210);
+
+    labelDoorViewTwo = lv_label_create(scr, NULL);
+    lv_label_set_style(labelDoorViewTwo, 0, &style);
+    lv_obj_align(labelDoorViewTwo, NULL, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_pos(labelDoorViewTwo, 120, 210);
+
+    //模式标签
+    labelModeView = lv_label_create(scr, NULL);
+    lv_label_set_style(labelModeView, 0, &style);
+    lv_obj_align(labelModeView, NULL, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_pos(labelModeView, 110, 260);
+    /*
     label3 = lv_label_create(scr, NULL);
     lv_label_set_style(label3, 0, &style);
     lv_obj_align(label3, NULL, LV_ALIGN_CENTER, 0, 0);
     lv_obj_set_pos(label3, 70, 150);
+    */
 }
 
 static void refresh_label(void)
 {
-    static int i = 0;
-    char numbuf[10];
-    char gradeBuf[10];
-    char nameBuf[10];
-    sprintf(nameBuf, "%s", "yangfan");
-    sprintf(gradeBuf, "%s", "1701");
+    lv_label_set_text(labelAirTempView, airTempText);
+    lv_label_set_text(labelAirDityView, airDityText);
+    lv_label_set_text(labeLedViewOne, led1Text);
+    lv_label_set_text(labeLedViewTwo, led2Text);
+    lv_label_set_text(labeLedViewThr, led3Text);
+    lv_label_set_text(labeLedViewFou, led4Text);
+    lv_label_set_text(labelDoorViewOne, door1Text);
+    lv_label_set_text(labelDoorViewTwo, door2Text);
+    lv_label_set_text(labelModeView, modeText);
+    /*char numbuf[10];
     sprintf(numbuf, "%s", "20174290");
-    lv_label_set_text(label1, numbuf);
-    lv_label_set_text(label2, gradeBuf);
-    lv_label_set_text(label3, nameBuf);
-
-
-    //i++;
+    lv_label_set_text(label1, numbuf);*/
 }
 
 static void create_clock(void)
