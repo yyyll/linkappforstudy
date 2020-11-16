@@ -1,16 +1,17 @@
 #include "ulog/ulog.h"
 #include "aos/kernel.h"
 #include "aos/hal/gpio.h"
-
+#include <stdbool.h>
 #include "edu_gpio.h"
 #include "display_data.h"
 #include <aos/hal/pwm.h>
 
 #define PIN_LED_RED 17
-#define PIN_LED_PWM_BLU 26
+#define PIN_LED_BLU 26
 #define PIN_LED_YEL 21
 #define PIN_LED_GRN 22
 
+extern bool led1Status,led2Status,led3Status,led4Status;
 
 int lastKey1Status = 1, key1Status = 1;
 int lastKey2Status = 1, key2Status = 1;
@@ -43,9 +44,9 @@ gpio_dev_t led_yel =
     .port = PIN_LED_YEL,
     .config = OUTPUT_PUSH_PULL,
 };
-gpio_dev_t led_red = 
+gpio_dev_t led_blu = 
 {
-    .port = PIN_LED_RED,
+    .port = PIN_LED_BLU,
     .config = OUTPUT_PUSH_PULL,
 };
 gpio_dev_t led_grn = 
@@ -56,7 +57,7 @@ gpio_dev_t led_grn =
 
 pwm_dev_t pwm1 = 
 {
-    .port = PIN_LED_PWM_BLU,
+    .port = PIN_LED_RED,
     .config.duty_cycle = 0.0f,
     .config.freq       = 1000,
 };
@@ -88,7 +89,7 @@ void start_pwm1(void)
 // io 初始化
 void edu_gpio_init(void)
 {
-    hal_gpio_init(&led_red);
+    hal_gpio_init(&led_blu);
     hal_gpio_init(&led_yel);
     hal_gpio_init(&led_grn);
     hal_gpio_init(&key1);
@@ -98,15 +99,15 @@ void edu_gpio_init(void)
 }
 
 
-// 反转红色LED
-void edu_red_led_toggle(void)
+// 反转蓝色LED
+void edu_blu_led_toggle(void)
 {
-    hal_gpio_output_toggle(&led_red);
+    hal_gpio_output_toggle(&led_blu);
 }
 // LED测试
 void edu_led_test(void)
 {
-    edu_red_led_toggle();
+    edu_blu_led_toggle();
     aos_post_delayed_action(100, edu_led_test, NULL);
 }
 
@@ -126,4 +127,25 @@ void keyScan(void)
     lastKey4Status = key4Status;
     //if (lastKey1Status != key1Status && key1Status == 0)
     aos_post_delayed_action(20,keyScan, NULL);
+}
+
+//GPIO扫描
+void gpioScan(void)
+{
+    hal_pwm_finalize(&pwm1);
+    if (true == led2Status)
+        LEDBLUBRIGHT;
+    else
+        LEDBLUDARK;
+    if (true == led3Status)
+        LEDYELBRIGHT;
+    else
+        LEDYELDARK;
+    if (true == led4Status)
+        LEDGRNBRIGHT;
+    else
+        LEDGRNDARK;
+    hal_pwm_init(&pwm1);
+    hal_pwm_start(&pwm1);
+    aos_post_delayed_action(20,gpioScan, NULL);
 }

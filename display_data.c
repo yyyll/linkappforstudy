@@ -1,13 +1,15 @@
 #include "ulog/ulog.h"
 #include "aos/kernel.h"
 #include "aos/hal/gpio.h"
-
+#include <aos/hal/pwm.h>
+#include <stdbool.h>
 #include "display_data.h"
 #include "edu_gpio.h"
 extern int lastKey1Status , key1Status;
 extern int lastKey2Status , key2Status;
 extern int lastKey3Status , key3Status;
 extern int lastKey4Status , key4Status;
+extern pwm_dev_t pwm1;
 enum SetMode
 {
     freeMode,
@@ -47,6 +49,13 @@ char door2Text[10] = {"Door2:0"};
 char modeText[15] = {"freemode"};
 int tempValue=25;
 int dityValue=35;
+bool door1Status = false;
+bool door2Status = false;
+float led1DutyCycle = 1.f;
+bool led2Status = false;
+bool led3Status = false;
+bool led4Status = false;
+
 void DataChange(void)
 {
     if (lastKey4Status == 0 && key4Status == 1)
@@ -77,6 +86,10 @@ void SetAirCondition(void)
 {
     //增加减少标志位，1增加，-1减少
     static int increaseFlag = 0;
+    if (lastKey3Status == 0 && key3Status == 1)
+        increaseFlag = 1;
+    else if (lastKey1Status == 0 && key1Status == 1)
+        increaseFlag = -1;
     if (lastKey2Status == 0 && key2Status == 1)
     {
         if (airMode == tempMode)
@@ -84,10 +97,6 @@ void SetAirCondition(void)
         else
             airMode = tempMode;
     }
-    if (lastKey3Status == 0 && key3Status == 1)
-        increaseFlag = 1;
-    else if (lastKey1Status == 0 && key1Status == 1)
-        increaseFlag = -1;
     switch (airMode)
     {
         case tempMode:
@@ -120,6 +129,16 @@ void SetAirCondition(void)
 
 void SetLed(void)
 {
+    //led的状态切换
+    static bool ledStatusFlag = false;
+    static int led1IncreaseFlag = 0;
+    //s1控制状态转换
+    if (lastKey1Status == 0 && key1Status == 1)
+        ledStatusFlag = true;
+    //s3控制led1占空比
+    if (lastKey3Status == 0 && key3Status == 1)
+        led1IncreaseFlag = -1;
+    //s2选择led控制
     if (lastKey2Status == 0 && key2Status == 1)
     {
         if (ledNum == led4)
@@ -130,24 +149,49 @@ void SetLed(void)
     switch (ledNum)
     {
         case led1:
+            if (true == ledStatusFlag)
+                pwm1.config.duty_cycle = pwm1.config.duty_cycle - 0.1;
+            if (-1 == led1IncreaseFlag)
+                pwm1.config.duty_cycle = pwm1.config.duty_cycle + 0.1;
+            if (pwm1.config.duty_cycle >= 1)
+                pwm1.config.duty_cycle = 1;
+            else if (pwm1.config.duty_cycle <= 0)
+                pwm1.config.duty_cycle = 0;
+            led1DutyCycle = 1 - pwm1.config.duty_cycle;
+            sprintf(led1Text, "%s%0.2f" , "LED1:",led1DutyCycle);
             sprintf(modeText, "%s" , "ledmode-led1");
             break;
         case led2:
+            if (true == ledStatusFlag)
+                led2Status = !led2Status;
+            sprintf(led2Text, "%s%d" , "LED2:",led2Status);
             sprintf(modeText, "%s" , "ledmode-led2");
             break;
         case led3:
+            if (true == ledStatusFlag)
+                led3Status = !led3Status;
+            sprintf(led3Text, "%s%d" , "LED3:",led3Status);
             sprintf(modeText, "%s" , "ledmode-led3");
             break;
         case led4:
+            if (true == ledStatusFlag)
+                led4Status = !led4Status;
+            sprintf(led4Text, "%s%d" , "LED4:",led4Status);
             sprintf(modeText, "%s" , "ledmode-led4");
             break;
         default:
             break;
     }
+    ledStatusFlag = false;
+    led1IncreaseFlag = 0;
 }
 
 void SetDoor(void)
 {
+    //门的状态切换
+    static bool doorStatusFlag = false;
+    if (lastKey1Status == 0 && key1Status == 1)
+        doorStatusFlag = true;
     if (lastKey2Status == 0 && key2Status == 1)
     {
         if (doorNum == door1)
@@ -158,13 +202,20 @@ void SetDoor(void)
     switch (doorNum)
     {
         case door1:
+            if (true == doorStatusFlag)
+                door1Status = !door1Status;
+            sprintf(door1Text, "%s%d" , "Door1:",door1Status);
             sprintf(modeText, "%s" , "doormode-door1");
             break;
         case door2:
+            if (true == doorStatusFlag)
+                door2Status = !door2Status;
+            sprintf(door2Text, "%s%d" , "Door2:",door2Status);
             sprintf(modeText, "%s" , "doormode-door2");
             break;
         default:
             break;
     }
+    doorStatusFlag = false;
 }
 

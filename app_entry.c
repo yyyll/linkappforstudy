@@ -532,8 +532,8 @@ int application_start(int argc, char **argv)
 #endif
     edu_gpio_init();
     led_pwm1_init();
-    start_pwm1();
     keyScan();
+    gpioScan();
     gui_init();
     aos_loop_run();
 
