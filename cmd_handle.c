@@ -28,18 +28,21 @@ void property_set_handle(char* cmd){
                 led2Status = led3Status = led4Status = false;
                 break;
             case 1:
-                led2Status = led3Status = led4Status = true;
+                //led2Status = led3Status = led4Status = true;
+                led2Status = !led2Status;
+                led3Status = !led3Status;
+                led4Status = !led4Status;
                 break;
             case 11:
                 break;
             case 21:
-                led2Status = true;
+                led2Status = !led2Status;
                 break;
             case 31:
-                led3Status = true;
+                led3Status = !led3Status;
                 break;
             case 41:
-                led4Status = true;
+                led4Status = !led4Status;
                 break;
             case 10:
                 break;
