@@ -123,6 +123,12 @@ void keyScan(void)
     //DataChange();
     if (lastKey1Status == 0 && key1Status == 1)
         user_post_property2_ali(1);
+    if (lastKey2Status == 0 && key2Status == 1)
+        user_post_property2_ali(2);
+    if (lastKey3Status == 0 && key3Status == 1)
+        user_post_property2_ali(3);
+    if (lastKey4Status == 0 && key4Status == 1)
+        user_post_property2_ali(4);
     lastKey1Status = key1Status;
     lastKey2Status = key2Status;
     lastKey3Status = key3Status;

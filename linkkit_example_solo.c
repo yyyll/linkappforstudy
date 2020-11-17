@@ -231,8 +231,14 @@ void user_post_property2_ali(int sw)
     int res = 0;
 
     char property_payload[30] = {0};
-    HAL_Snprintf(property_payload, sizeof(property_payload), "{\"power2\": %d}", sw);
-
+    if (1 == sw)
+        HAL_Snprintf(property_payload, sizeof(property_payload), "{\"power1\": %d}", 1);
+    if (2 == sw)
+        HAL_Snprintf(property_payload, sizeof(property_payload), "{\"power2\": %d}", 1);
+    if (3 == sw)
+        HAL_Snprintf(property_payload, sizeof(property_payload), "{\"power3\": %d}", 1);
+    if (4 == sw)
+        HAL_Snprintf(property_payload, sizeof(property_payload), "{\"power4\": %d}", 1);
     res = IOT_Linkkit_Report(EXAMPLE_MASTER_DEVID, ITM_MSG_POST_PROPERTY,
                              (unsigned char *)property_payload, strlen(property_payload));
 
