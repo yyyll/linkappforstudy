@@ -25,10 +25,10 @@
 #include "app_entry.h"
 
 // for demo only
-#define PRODUCT_KEY      "a1Gn3Y4b5k9"
-#define PRODUCT_SECRET   "pe5KSQqty5Y9w8bb"
-#define DEVICE_NAME      "hahahatest"
-#define DEVICE_SECRET    "005eefe09611190151e40a0c558a0cf8"
+#define PRODUCT_KEY      "a1pcYV0dAQp"
+#define PRODUCT_SECRET   "9N4o6x5VI8aAuZKZ"
+#define DEVICE_NAME      "switch"
+#define DEVICE_SECRET    "75a4ef590246a6cf619c5880a38e7c47"
 
 #define EXAMPLE_TRACE(...)                                          \
     do {                                                            \
@@ -220,6 +220,18 @@ void user_post_property(void)
 
     char property_payload[30] = {0};
     HAL_Snprintf(property_payload, sizeof(property_payload), "{\"Counter\": %d}", cnt++);
+
+    res = IOT_Linkkit_Report(EXAMPLE_MASTER_DEVID, ITM_MSG_POST_PROPERTY,
+                             (unsigned char *)property_payload, strlen(property_payload));
+
+    EXAMPLE_TRACE("Post Property Message ID: %d", res);
+}
+void user_post_property2_ali(int sw)
+{
+    int res = 0;
+
+    char property_payload[30] = {0};
+    HAL_Snprintf(property_payload, sizeof(property_payload), "{\"power2\": %d}", sw);
 
     res = IOT_Linkkit_Report(EXAMPLE_MASTER_DEVID, ITM_MSG_POST_PROPERTY,
                              (unsigned char *)property_payload, strlen(property_payload));

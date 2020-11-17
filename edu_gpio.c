@@ -120,7 +120,9 @@ void keyScan(void)
     hal_gpio_input_get(&key2,&key2Status);
     hal_gpio_input_get(&key3,&key3Status);
     hal_gpio_input_get(&key4,&key4Status);
-    DataChange();
+    //DataChange();
+    if (lastKey1Status == 0 && key1Status == 1)
+        user_post_property2_ali(1);
     lastKey1Status = key1Status;
     lastKey2Status = key2Status;
     lastKey3Status = key3Status;

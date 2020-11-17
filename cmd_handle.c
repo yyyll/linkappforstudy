@@ -4,12 +4,21 @@
 #include <stdbool.h>
 #include "ulog/ulog.h"
 #include "display_data.h"
-
+#include "aos/kernel.h"
+#include "cJSON.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "linkkit/infra/infra_defs.h"
+#include "linkkit/infra/infra_compat.h"
+#include "linkkit/dev_model_api.h"
+#include "linkkit/infra/infra_config.h"
+#include "linkkit/wrappers/wrappers.h"
+#include "app_entry.h"
 #define PROPERTY "powerstate"
 #define PROPERTY1 "powerstate1"
 #define PROPERTY2 "brightness"
 extern bool led2Status,led3Status,led4Status;
-extern pwm_dev_t pwm1;
+//extern pwm_dev_t pwm1;
 
 void property_set_handle(char* cmd){
     int res = 0;
