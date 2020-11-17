@@ -16,3 +16,4 @@ out/linkapp@esp32devkitc/libraries/linkapp.ar_opts
 .aos
 *.DB
 .aos
+*.DB

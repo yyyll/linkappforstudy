@@ -11,7 +11,7 @@
 #define PIN_LED_YEL 21
 #define PIN_LED_GRN 22
 
-extern bool led1Status,led2Status,led3Status,led4Status;
+extern bool led2Status,led3Status,led4Status;
 
 int lastKey1Status = 1, key1Status = 1;
 int lastKey2Status = 1, key2Status = 1;
@@ -58,7 +58,7 @@ gpio_dev_t led_grn =
 pwm_dev_t pwm1 = 
 {
     .port = PIN_LED_RED,
-    .config.duty_cycle = 0.0f,
+    .config.duty_cycle = 1.0f,
     .config.freq       = 1000,
 };
 pwm_config_t pwm_cfg = {0.0f,10000};
@@ -125,7 +125,6 @@ void keyScan(void)
     lastKey2Status = key2Status;
     lastKey3Status = key3Status;
     lastKey4Status = key4Status;
-    //if (lastKey1Status != key1Status && key1Status == 0)
     aos_post_delayed_action(20,keyScan, NULL);
 }
 

@@ -114,7 +114,7 @@ static int user_property_set_event_handler(const int devid, const char *request,
     res = IOT_Linkkit_Report(EXAMPLE_MASTER_DEVID, ITM_MSG_POST_PROPERTY,
                              (unsigned char *)request, request_len);
     EXAMPLE_TRACE("Post Property Message ID: %d", res);
-
+    HAL_Printf("hahhah");
     return 0;
 }
 

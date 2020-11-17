@@ -39,8 +39,8 @@ enum DoorMode
 } doorNum;
 
 char airTempText[4] = {"25"};
-char airDityText[6] = {"35%"};
-char led1Text[8] = {"LED1:0"};
+char airDityText[4] = {"35%"};
+char led1Text[11] = {"LED1:0"};
 char led2Text[8] = {"LED2:0"};
 char led3Text[8] = {"LED3:0"};
 char led4Text[8] = {"LED4:0"};
@@ -65,6 +65,9 @@ void DataChange(void)
         else
             controlMode++;
     }
+    if (lastKey3Status == 0 && lastKey1Status == 0)
+        controlMode = freeMode;
+
     switch (controlMode)
     {
         case airConditionMode:
@@ -118,7 +121,6 @@ void SetAirCondition(void)
             else if (dityValue <= 0)
                 dityValue = 0;
             sprintf(airDityText, "%d%c" , dityValue,'%');
-            airDityText[5] = '%';
             sprintf(modeText, "%s" , "airmode-dity");
             break;
         default:
@@ -133,10 +135,10 @@ void SetLed(void)
     static bool ledStatusFlag = false;
     static int led1IncreaseFlag = 0;
     //s1控制状态转换
-    if (lastKey1Status == 0 && key1Status == 1)
+    if (lastKey3Status == 0 && key3Status == 1)
         ledStatusFlag = true;
     //s3控制led1占空比
-    if (lastKey3Status == 0 && key3Status == 1)
+    if (lastKey1Status == 0 && key1Status == 1)
         led1IncreaseFlag = -1;
     //s2选择led控制
     if (lastKey2Status == 0 && key2Status == 1)
@@ -158,7 +160,7 @@ void SetLed(void)
             else if (pwm1.config.duty_cycle <= 0)
                 pwm1.config.duty_cycle = 0;
             led1DutyCycle = 1 - pwm1.config.duty_cycle;
-            sprintf(led1Text, "%s%0.2f" , "LED1:",led1DutyCycle);
+            sprintf(led1Text, "%s%0.1f" , "LED1:",led1DutyCycle);
             sprintf(modeText, "%s" , "ledmode-led1");
             break;
         case led2:
@@ -190,7 +192,7 @@ void SetDoor(void)
 {
     //门的状态切换
     static bool doorStatusFlag = false;
-    if (lastKey1Status == 0 && key1Status == 1)
+    if (lastKey3Status == 0 && key3Status == 1)
         doorStatusFlag = true;
     if (lastKey2Status == 0 && key2Status == 1)
     {
