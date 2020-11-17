@@ -38,14 +38,6 @@ enum DoorMode
     door2
 } doorNum;
 
-char airTempText[4] = {"25"};
-char airDityText[4] = {"35%"};
-char led1Text[11] = {"LED1:0"};
-char led2Text[8] = {"LED2:0"};
-char led3Text[8] = {"LED3:0"};
-char led4Text[8] = {"LED4:0"};
-char door1Text[10] = {"Door1:0"};
-char door2Text[10] = {"Door2:0"};
 char modeText[15] = {"freemode"};
 int tempValue=25;
 int dityValue=35;
@@ -107,7 +99,6 @@ void SetAirCondition(void)
                 tempValue++;
             else if (-1 == increaseFlag)
                 tempValue--;
-            sprintf(airTempText, "%d" , tempValue);
             sprintf(modeText, "%s" , "airmode-temp");
             break;
         case dityMode:
@@ -120,7 +111,6 @@ void SetAirCondition(void)
                 dityValue = 100;
             else if (dityValue <= 0)
                 dityValue = 0;
-            sprintf(airDityText, "%d%c" , dityValue,'%');
             sprintf(modeText, "%s" , "airmode-dity");
             break;
         default:
@@ -160,25 +150,21 @@ void SetLed(void)
             else if (pwm1.config.duty_cycle <= 0)
                 pwm1.config.duty_cycle = 0;
             led1DutyCycle = 1 - pwm1.config.duty_cycle;
-            sprintf(led1Text, "%s%0.1f" , "LED1:",led1DutyCycle);
             sprintf(modeText, "%s" , "ledmode-led1");
             break;
         case led2:
             if (true == ledStatusFlag)
                 led2Status = !led2Status;
-            sprintf(led2Text, "%s%d" , "LED2:",led2Status);
             sprintf(modeText, "%s" , "ledmode-led2");
             break;
         case led3:
             if (true == ledStatusFlag)
                 led3Status = !led3Status;
-            sprintf(led3Text, "%s%d" , "LED3:",led3Status);
             sprintf(modeText, "%s" , "ledmode-led3");
             break;
         case led4:
             if (true == ledStatusFlag)
                 led4Status = !led4Status;
-            sprintf(led4Text, "%s%d" , "LED4:",led4Status);
             sprintf(modeText, "%s" , "ledmode-led4");
             break;
         default:
@@ -206,13 +192,11 @@ void SetDoor(void)
         case door1:
             if (true == doorStatusFlag)
                 door1Status = !door1Status;
-            sprintf(door1Text, "%s%d" , "Door1:",door1Status);
             sprintf(modeText, "%s" , "doormode-door1");
             break;
         case door2:
             if (true == doorStatusFlag)
                 door2Status = !door2Status;
-            sprintf(door2Text, "%s%d" , "Door2:",door2Status);
             sprintf(modeText, "%s" , "doormode-door2");
             break;
         default:

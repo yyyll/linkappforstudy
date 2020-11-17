@@ -4,7 +4,7 @@
 #include "ulog/ulog.h"
 #include "stdio.h"
 #include "display_data.h"
-
+#include <stdbool.h>
 
 LV_IMG_DECLARE(AliOS_Things_logo);
 
@@ -58,14 +58,23 @@ lv_obj_t *modeBtn       = NULL;
 
 int clock_create_flag  = 0;
 int label_create_flag  = 0;
-extern char airTempText[4];
-extern char airDityText[4];
-extern char led1Text[11];
-extern char led2Text[8];
-extern char led3Text[8];
-extern char led4Text[8];
-extern char door1Text[10];
-extern char door2Text[10];
+char airTempText[4] = {"25"};
+char airDityText[4] = {"35%"};
+char led1Text[11] = {"LED1:0"};
+char led2Text[8] = {"LED2:0"};
+char led3Text[8] = {"LED3:0"};
+char led4Text[8] = {"LED4:0"};
+char door1Text[10] = {"Door1:0"};
+char door2Text[10] = {"Door2:0"};
+
+extern int tempValue;
+extern int dityValue;
+extern bool door1Status;
+extern bool door2Status;
+extern float led1DutyCycle;
+extern bool led2Status;
+extern bool led3Status;
+extern bool led4Status;
 extern char modeText[15];
 
 static lv_style_t style;
@@ -313,6 +322,15 @@ static void create_label(void)
 
 static void refresh_label(void)
 {
+    sprintf(airTempText, "%d" , tempValue);
+    sprintf(airDityText, "%d%c" , dityValue,'%');
+    sprintf(led1Text, "%s%0.1f" , "LED1:",led1DutyCycle);
+    sprintf(led2Text, "%s%d" , "LED2:",led2Status);
+    sprintf(led3Text, "%s%d" , "LED3:",led3Status);
+    sprintf(led4Text, "%s%d" , "LED4:",led4Status);
+    sprintf(door1Text, "%s%d" , "Door1:",door1Status);
+     sprintf(door2Text, "%s%d" , "Door2:",door2Status);
+     
     lv_label_set_text(labelAirTempView, airTempText);
     lv_label_set_text(labelAirDityView, airDityText);
     lv_label_set_text(labeLedViewOne, led1Text);

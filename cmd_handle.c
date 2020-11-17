@@ -9,6 +9,7 @@
 #define PROPERTY1 "powerstate1"
 #define PROPERTY2 "brightness"
 extern bool led2Status,led3Status,led4Status;
+extern pwm_dev_t pwm1;
 
 void property_set_handle(char* cmd){
     int res = 0;
@@ -23,15 +24,21 @@ void property_set_handle(char* cmd){
         LOG("rx cmd %s, %d\n", PROPERTY2, lite_item_pk.value_int);
         switch (lite_item_pk.value_int)
         {
-            case 1:
+            case 0:
+                led2Status = led3Status = led4Status = false;
                 break;
-            case 2:
+            case 1:
+                led2Status = led3Status = led4Status = true;
+                break;
+            case 11:
+                break;
+            case 21:
                 led2Status = true;
                 break;
-            case 3:
+            case 31:
                 led3Status = true;
                 break;
-            case 4:
+            case 41:
                 led4Status = true;
                 break;
             case 10:
