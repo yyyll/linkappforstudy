@@ -5,7 +5,7 @@
 #include "stdio.h"
 #include "display_data.h"
 #include <stdbool.h>
-
+#include <aos/hal/pwm.h>
 LV_IMG_DECLARE(AliOS_Things_logo);
 
 #define LOGO_DISP       0
@@ -76,6 +76,7 @@ extern bool led2Status;
 extern bool led3Status;
 extern bool led4Status;
 extern char modeText[15];
+extern pwm_dev_t pwm1;
 
 static lv_style_t style;
 static lv_style_t style1;
@@ -322,6 +323,7 @@ static void create_label(void)
 
 static void refresh_label(void)
 {
+    led1DutyCycle = 1 - pwm1.config.duty_cycle;
     sprintf(airTempText, "%d" , tempValue);
     sprintf(airDityText, "%d%c" , dityValue,'%');
     sprintf(led1Text, "%s%0.1f" , "LED1:",led1DutyCycle);
@@ -330,7 +332,7 @@ static void refresh_label(void)
     sprintf(led4Text, "%s%d" , "LED4:",led4Status);
     sprintf(door1Text, "%s%d" , "Door1:",door1Status);
      sprintf(door2Text, "%s%d" , "Door2:",door2Status);
-     
+
     lv_label_set_text(labelAirTempView, airTempText);
     lv_label_set_text(labelAirDityView, airDityText);
     lv_label_set_text(labeLedViewOne, led1Text);

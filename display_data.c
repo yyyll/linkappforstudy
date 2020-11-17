@@ -50,15 +50,27 @@ bool led4Status = false;
 
 void DataChange(void)
 {
-    if (lastKey4Status == 0 && key4Status == 1)
+    if (lastKey3Status == 0 && lastKey1Status == 0)
+        controlMode = freeMode;
+    if (lastKey2Status == 0 && lastKey1Status == 0)
+    {
+        controlMode = freeMode;
+        led2Status = led3Status = led4Status = door1Status = door2Status = false;
+        pwm1.config.duty_cycle = 1;
+    }
+    if (lastKey4Status == 0 && lastKey1Status == 0)
+    {
+        controlMode = freeMode;
+        led2Status = led3Status = led4Status = true;
+        pwm1.config.duty_cycle = 0;
+    }
+    else if (lastKey4Status == 0 && key4Status == 1)
     {
         if (controlMode == doorMode)
             controlMode = freeMode;
         else
             controlMode++;
     }
-    if (lastKey3Status == 0 && lastKey1Status == 0)
-        controlMode = freeMode;
 
     switch (controlMode)
     {
@@ -149,7 +161,6 @@ void SetLed(void)
                 pwm1.config.duty_cycle = 1;
             else if (pwm1.config.duty_cycle <= 0)
                 pwm1.config.duty_cycle = 0;
-            led1DutyCycle = 1 - pwm1.config.duty_cycle;
             sprintf(modeText, "%s" , "ledmode-led1");
             break;
         case led2:
