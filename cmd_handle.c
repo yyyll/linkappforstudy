@@ -9,7 +9,7 @@
 #define PROPERTY1 "powerstate1"
 #define PROPERTY2 "brightness"
 extern bool led2Status,led3Status,led4Status;
-extern pwm_dev_t pwm1;
+//extern pwm_dev_t pwm1;
 
 void property_set_handle(char* cmd){
     int res = 0;
