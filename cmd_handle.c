@@ -10,7 +10,8 @@
 #define PROPERTY2 "brightness"
 extern bool led2Status,led3Status,led4Status,door1Status,door2Status;
 extern pwm_dev_t pwm1;
-
+extern enum SetMode controlMode;
+extern char modeText[15];
 void property_set_handle(char* cmd){
     int res = 0;
     lite_cjson_t lite_item, lite_item_pk;
@@ -24,14 +25,22 @@ void property_set_handle(char* cmd){
         LOG("rx cmd %s, %d\n", PROPERTY2, lite_item_pk.value_int);
         switch (lite_item_pk.value_int)
         {
+            //全灭
             case 0:
                 led2Status = led3Status = led4Status = door1Status = door2Status = false;
                 pwm1.config.duty_cycle = 1;
                 break;
+            //全开
             case 1:
                 led2Status = led3Status = led4Status = door1Status = door2Status = true;
                 pwm1.config.duty_cycle = 0;
                 break;
+            //童锁
+            case 2:
+                controlMode = freeMode;
+                sprintf(modeText, "%s" , "freemode");
+                break;
+            //改变状态
             case 11:
                 led2Status = !led2Status;
                 led3Status = !led3Status;

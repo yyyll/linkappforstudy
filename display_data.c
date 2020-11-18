@@ -10,13 +10,7 @@ extern int lastKey2Status , key2Status;
 extern int lastKey3Status , key3Status;
 extern int lastKey4Status , key4Status;
 extern pwm_dev_t pwm1;
-enum SetMode
-{
-    freeMode,
-    airConditionMode,
-    ledMode,
-    doorMode,
-} controlMode;
+enum SetMode controlMode;
 
 enum AirMode
 {
