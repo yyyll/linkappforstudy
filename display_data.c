@@ -52,13 +52,13 @@ void DataChange(void)
 {
     if (lastKey3Status == 0 && lastKey1Status == 0)
         controlMode = freeMode;
-    if (lastKey2Status == 0 && lastKey1Status == 0)
+    else if (lastKey2Status == 0 && lastKey1Status == 0)
     {
         controlMode = freeMode;
         led2Status = led3Status = led4Status = door1Status = door2Status = false;
         pwm1.config.duty_cycle = 1;
     }
-    if (lastKey4Status == 0 && lastKey1Status == 0)
+    else if (lastKey4Status == 0 && lastKey1Status == 0)
     {
         controlMode = freeMode;
         led2Status = led3Status = led4Status = true;

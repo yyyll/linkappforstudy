@@ -4,12 +4,12 @@
 #include <stdbool.h>
 #include "ulog/ulog.h"
 #include "display_data.h"
-
+#include <aos/hal/pwm.h>
 #define PROPERTY "powerstate"
 #define PROPERTY1 "powerstate1"
 #define PROPERTY2 "brightness"
-extern bool led2Status,led3Status,led4Status;
-//extern pwm_dev_t pwm1;
+extern bool led2Status,led3Status,led4Status,door1Status,door2Status;
+extern pwm_dev_t pwm1;
 
 void property_set_handle(char* cmd){
     int res = 0;
@@ -25,15 +25,17 @@ void property_set_handle(char* cmd){
         switch (lite_item_pk.value_int)
         {
             case 0:
-                led2Status = led3Status = led4Status = false;
+                led2Status = led3Status = led4Status = door1Status = door2Status = false;
+                pwm1.config.duty_cycle = 1;
                 break;
             case 1:
-                //led2Status = led3Status = led4Status = true;
+                led2Status = led3Status = led4Status = door1Status = door2Status = true;
+                pwm1.config.duty_cycle = 0;
+                break;
+            case 11:
                 led2Status = !led2Status;
                 led3Status = !led3Status;
                 led4Status = !led4Status;
-                break;
-            case 11:
                 break;
             case 21:
                 led2Status = !led2Status;
@@ -43,17 +45,6 @@ void property_set_handle(char* cmd){
                 break;
             case 41:
                 led4Status = !led4Status;
-                break;
-            case 10:
-                break;
-            case 20:
-                led2Status = false;
-                break;
-            case 30:
-                led3Status = false;
-                break;
-            case 40:
-                led4Status = false;
                 break;
             default:
                 break;
